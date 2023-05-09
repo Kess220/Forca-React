@@ -1,0 +1,82 @@
+.forca {
+    width: 400px;
+    width: 466px;
+    margin-top: 59px;
+    margin-left: 39px;
+}
+
+.escolher_palavra {
+    width: 200px;
+    height: 60px;
+    background-color: #27AE60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-top: 89px;
+    position: absolute;
+    margin-left: 1088px
+}
+
+.layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+
+
+.letra-do-jogo {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-right: 10px;
+    text-transform: uppercase;
+    align-self: flex-start;
+}
+
+.palavra-do-jogo {
+
+    width: 323px;
+    height: 68px;
+
+
+
+    display: flex;
+    align-self: flex-end;
+    font-size: 50px;
+    line-height: 68px;
+    align-items: center;
+    text-align: center;
+    margin-right: 61px;
+
+
+}
+
+
+
+
+.letras {
+    width: 838px;
+    height: 80px;
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 211px;
+
+
+
+
+
+
+}
+
+.letra {
+    font-style: normal;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    margin: 12px;
+    color: #39739D;
+    background: #E1ECF4;
+    border: 1px solid #7AA7C7;
+    border-radius: 3px;
+}
