@@ -80,3 +80,21 @@
     border: 1px solid #7AA7C7;
     border-radius: 3px;
 }
+
+.selecionada {
+    position: relative;
+    top: -20px;
+}
+
+.letra_escolher {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.vencedora {
+    color: green;
+}
+
+.perdedora {
+    color: red;
+}
