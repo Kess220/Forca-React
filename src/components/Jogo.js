@@ -32,11 +32,8 @@ const JogoDaForca = (props) => {
     // Escolha uma palavra aleatória do array de props.palavras
     const palavraEscolhida =
       props.palavras[Math.floor(Math.random() * props.palavras.length)];
-
-    // Transforme a palavra escolhida em um array de caracteres
     const palavraArray = palavraEscolhida.split("");
 
-    // Insira o array da palavra escolhida no estado palavraDoJogo
     setPalavraDoJogo(palavraArray);
 
     // Remova o atributo "disabled" do botão com a classe "letras"
@@ -88,6 +85,7 @@ const JogoDaForca = (props) => {
       }
     }
   };
+
   const handleChute = (event) => {
     event.preventDefault();
     const palavraChutada = event.target.parentElement
