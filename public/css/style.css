@@ -1,3 +1,12 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 68px;
+
+}
+
 .forca {
     width: 400px;
     width: 466px;
@@ -6,6 +15,8 @@
 }
 
 .escolher_palavra {
+    font-family: "Roboto",
+        sans-serif;
     width: 200px;
     height: 60px;
     background-color: #27AE60;
@@ -79,6 +90,8 @@
     background: #E1ECF4;
     border: 1px solid #7AA7C7;
     border-radius: 3px;
+    text-transform: uppercase;
+
 }
 
 .selecionada {
