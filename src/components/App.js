@@ -1,9 +1,9 @@
 import Jogo from "./Jogo";
-import Palavras from "./Palavras";
+import palavras from "../palavras";
 function App() {
   return (
     <>
-      <Jogo palavras={Palavras} />
+      <Jogo palavras={palavras} />
     </>
   );
 }
