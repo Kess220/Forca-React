@@ -53,6 +53,10 @@ const JogoDaForca = (props) => {
 
     // Altere o caminho da imagem da forca para a imagem inicial (forca0)
     document.querySelector(".forca").src = forca0;
+
+    document.querySelector(".letras").classList.remove("desabilitado");
+
+    document.querySelector(".chute").style.display = "flex";
   };
 
   const handleLetraClick = (letra) => {
@@ -173,14 +177,16 @@ const JogoDaForca = (props) => {
           {renderPalavra()}
         </div>
       </div>
-      <div>
-        <Letras
-          onClick={handleLetraClick || jogoVencido}
-          disabled={botaoLetrasDisabled}
-        />
-      </div>
+
+      <Letras
+        className="letras"
+        onClick={handleLetraClick || jogoVencido}
+        disabled={botaoLetrasDisabled}
+      />
 
       <div className="chute">
+        {" "}
+        Já sei a palavra!
         <input
           data-test="guess-input"
           type="text"

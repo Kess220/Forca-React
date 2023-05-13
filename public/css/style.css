@@ -66,42 +66,73 @@ body {
 
 
 .letras {
-    width: 838px;
-    height: 80px;
-
     display: flex;
     flex-wrap: wrap;
-    margin-left: 211px;
+    width: 43%;
+
+    justify-content: center;
+    height: 54px;
+    margin: auto;
+}
 
 
 
+.letras>button[disabled] {
+    background: #9FAAB5;
+    border: 1px solid #7AA7C7;
+    border-radius: 3px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #798A9F;
+}
+
+.letras>button {
+    background: #E1ECF4;
+    border: 1px solid #7AA7C7;
+    border-radius: 3px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    color: #39739D;
+
+}
+
+
+
+
+
+.letrinha {
+    text-transform: uppercase;
+    font-family: 'Roboto';
+    font-size: 16px;
 
 
 
 }
 
 .letra {
-    font-style: normal;
-    font-size: 16px;
+    box-sizing: border-box;
     width: 40px;
     height: 40px;
-    margin: 12px;
-    color: #39739D;
+
     background: #E1ECF4;
     border: 1px solid #7AA7C7;
     border-radius: 3px;
-    text-transform: uppercase;
-
 }
 
-.selecionada {
-    position: relative;
-    top: -20px;
-}
 
 .letra_escolher {
     display: inline-block;
     margin-right: 5px;
+
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
 }
 
 .vencedora {
@@ -113,10 +144,16 @@ body {
 }
 
 .chute {
-    display: flex;
+
+    display: none;
     justify-content: center;
     margin-top: 68px;
     align-items: center;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
 }
 
 .input-chute {
@@ -131,15 +168,32 @@ body {
 }
 
 .button-chute {
-    box-sizing: border-box;
-    margin-left: 15px;
-
-
+    color: #3C76A1;
     width: 100px;
     height: 40px;
 
+    font-family: 'Roboto';
+    font-size: 16px;
     background: #E1ECF4;
     border: 1px solid #7AA7C7;
     border-radius: 3px;
 
+
+}
+
+/* .chute>button[disabled] {
+    background: #9FAAB5;
+    font-family: 'Roboto';
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid #7AA7C7;
+    color: #798A9F;
+} */
+
+
+
+.desabilitado {
+    background: #9FAAB5;
+    border: 1px solid #7AA7C7;
+    border-radius: 3px;
 }
