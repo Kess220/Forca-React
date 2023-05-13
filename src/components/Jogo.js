@@ -24,6 +24,7 @@ const JogoDaForca = (props) => {
   const [botaoInputDisabled, setBotaoInputDisabled] = useState(true);
 
   const [letrasSelecionadas, setLetrasSelecionadas] = useState([]);
+
   const [erros, setErros] = useState(0);
   const [numeroForca, setNumeroForca] = useState(0);
   const [jogoVencido, setJogoVencido] = useState(false);
@@ -84,6 +85,10 @@ const JogoDaForca = (props) => {
         setPalavraDoJogo(palavraDoJogo);
       }
     }
+
+    // Desabilitar botão correspondente à letra clicada
+    const botaoLetra = document.getElementById(`botao-${letra}`);
+    botaoLetra.disabled = true;
   };
 
   const handleChute = (event) => {

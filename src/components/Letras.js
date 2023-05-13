@@ -38,6 +38,7 @@ const Letras = ({ onClick, disabled }) => {
           key={letra}
           className="letra"
           onClick={() => onClick(letra)}
+          id={`botao-${letra}`}
           disabled={disabled}
         >
           <span className="letrinha">{letra}</span>
