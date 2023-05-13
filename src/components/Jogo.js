@@ -52,9 +52,11 @@ const JogoDaForca = (props) => {
     // Altere o caminho da imagem da forca para a imagem inicial (forca0)
     document.querySelector(".forca").src = forca0;
 
-    document.querySelector(".letras").classList.remove("desabilitado");
-
     document.querySelector(".chute").style.display = "flex";
+    const botoesLetras = document.querySelectorAll(".letra");
+    botoesLetras.forEach((botao) => {
+      botao.removeAttribute("disabled");
+    });
   };
 
   const handleLetraClick = (letra) => {
@@ -155,7 +157,6 @@ const JogoDaForca = (props) => {
         >
           {letrasSelecionadas.includes(letra) ? letra : "_"}
         </span>
-        <span>{letrasSelecionadas.includes(letra) ? "" : "_"}</span>
       </div>
     ));
   };
