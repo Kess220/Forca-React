@@ -17,19 +17,19 @@ const caminhosImagensForca = [
   forca6,
 ];
 
-const palavras = ["cachorro", "gato", "passarinho"];
-
-const JogoDaForca = () => {
+const JogoDaForca = (props) => {
   const [palavraDoJogo, setPalavraDoJogo] = useState([]);
   const [botaoLetrasDisabled, setBotaoLetrasDisabled] = useState(true);
+
   const [letrasSelecionadas, setLetrasSelecionadas] = useState([]);
   const [erros, setErros] = useState(0);
   const [numeroForca, setNumeroForca] = useState(0);
+  const [jogoVencido, setJogoVencido] = useState(false);
 
   const jogar = () => {
-    // Escolha uma palavra aleatória do array de palavras
+    // Escolha uma palavra aleatória do array de props.palavras
     const palavraEscolhida =
-      palavras[Math.floor(Math.random() * palavras.length)];
+      props.palavras[Math.floor(Math.random() * props.palavras.length)];
 
     // Transforme a palavra escolhida em um array de caracteres
     const palavraArray = palavraEscolhida.split("");
@@ -52,7 +52,17 @@ const JogoDaForca = () => {
   };
 
   const handleLetraClick = (letra) => {
-    if (letrasSelecionadas.includes(letra)) {
+    if (jogoVencido || letrasSelecionadas.includes(letra)) {
+      return;
+    }
+
+    const vitoria = palavraDoJogo.every((letra) =>
+      letrasSelecionadas.includes(letra)
+    );
+
+    if (vitoria) {
+      setBotaoLetrasDisabled(true);
+      setJogoVencido(true);
       return;
     }
 
@@ -66,13 +76,16 @@ const JogoDaForca = () => {
         document.querySelector(".forca").src =
           caminhosImagensForca[numeroForca + 1];
       } else {
-        alert("Você perdeu!");
         setPalavraDoJogo(palavraDoJogo);
       }
     }
   };
 
   const renderPalavra = () => {
+    const vitoria = palavraDoJogo.every((letra) =>
+      letrasSelecionadas.includes(letra)
+    );
+
     if (erros >= 6) {
       return palavraDoJogo.map((letra, index) => (
         <div key={index} className="letra_escolher">
@@ -82,11 +95,6 @@ const JogoDaForca = () => {
       ));
     }
 
-    const vitoria = palavraDoJogo.every((letra) =>
-      letrasSelecionadas.includes(letra)
-    );
-
-    // Verifica se o jogo já acabou
     if (vitoria) {
       return (
         <div className="palavra-do-jogo">
@@ -104,11 +112,11 @@ const JogoDaForca = () => {
       );
     }
 
-    // Verifica se o jogador venceu
-
     return palavraDoJogo.map((letra, index) => (
       <div key={index} className="letra_escolher">
-        <span className={letrasSelecionadas.includes(letra)}>
+        <span
+          className={letrasSelecionadas.includes(letra) ? "selecionada" : ""}
+        >
           {letrasSelecionadas.includes(letra) ? letra : "_"}
         </span>
         <span>{letrasSelecionadas.includes(letra) ? "" : "_"}</span>
@@ -126,7 +134,15 @@ const JogoDaForca = () => {
         <div className="palavra-do-jogo">{renderPalavra()}</div>
       </div>
       <div>
-        <Letras onClick={handleLetraClick} disabled={botaoLetrasDisabled} />
+        <Letras
+          onClick={handleLetraClick || jogoVencido}
+          disabled={botaoLetrasDisabled}
+        />
+      </div>
+
+      <div className="chute">
+        <input type="text" className="input-chute"></input>
+        <button className="button-chute">Chutar</button>
       </div>
     </>
   );

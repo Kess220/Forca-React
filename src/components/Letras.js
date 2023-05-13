@@ -1,6 +1,6 @@
 import React from "react";
 
-const letras = [
+export const letras = [
   "a",
   "b",
   "c",
@@ -30,7 +30,6 @@ const letras = [
 ];
 
 const Letras = ({ onClick, disabled }) => {
-  console.log("oi");
   return (
     <div className="letras">
       {letras.map((letra) => (

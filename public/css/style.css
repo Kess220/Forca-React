@@ -98,3 +98,35 @@
 .perdedora {
     color: red;
 }
+
+.chute {
+    display: flex;
+    justify-content: center;
+    margin-top: 68px;
+    align-items: center;
+}
+
+.input-chute {
+    box-sizing: border-box;
+    width: 353px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    margin-left: 12px;
+}
+
+.button-chute {
+    box-sizing: border-box;
+    margin-left: 15px;
+
+
+    width: 100px;
+    height: 40px;
+
+    background: #E1ECF4;
+    border: 1px solid #7AA7C7;
+    border-radius: 3px;
+
+}
