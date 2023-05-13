@@ -1,3 +1,3 @@
-const palavras = ["ovo"];
+const palavras = ["ovo", "pao"];
 
 export default palavras;
