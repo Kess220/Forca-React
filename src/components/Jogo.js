@@ -20,6 +20,7 @@ const caminhosImagensForca = [
 const JogoDaForca = (props) => {
   const [palavraDoJogo, setPalavraDoJogo] = useState([]);
   const [botaoLetrasDisabled, setBotaoLetrasDisabled] = useState(true);
+  const [botaoInputDisabled, setBotaoInputDisabled] = useState(true);
 
   const [letrasSelecionadas, setLetrasSelecionadas] = useState([]);
   const [erros, setErros] = useState(0);
@@ -39,6 +40,8 @@ const JogoDaForca = (props) => {
 
     // Remova o atributo "disabled" do botão com a classe "letras"
     setBotaoLetrasDisabled(false);
+    setBotaoInputDisabled(false);
+    setJogoVencido(false);
 
     // Limpe as letras selecionadas
     setLetrasSelecionadas([]);
@@ -80,6 +83,36 @@ const JogoDaForca = (props) => {
       }
     }
   };
+  const handleChute = (event) => {
+    event.preventDefault();
+    const palavraChutada = event.target.parentElement
+      .querySelector(".input-chute")
+      .value.toLowerCase();
+    if (palavraChutada.trim() === "") {
+      return;
+    }
+    if (palavraChutada === palavraDoJogo.join("").toLowerCase()) {
+      setJogoVencido(true);
+      setBotaoLetrasDisabled(true);
+      setBotaoInputDisabled(true);
+      setLetrasSelecionadas([
+        ...letrasSelecionadas,
+        ...palavraChutada.split(""),
+      ]);
+    } else {
+      setErros(erros + 6);
+      if (numeroForca <= 6) {
+        setNumeroForca(numeroForca + 6);
+        document.querySelector(".forca").src =
+          caminhosImagensForca[numeroForca + 6];
+        setBotaoLetrasDisabled(true);
+        setBotaoInputDisabled(true);
+      } else {
+        // removido o setPalavraDoJogo aqui
+      }
+    }
+    event.target.parentElement.querySelector(".input-chute").value = "";
+  };
 
   const renderPalavra = () => {
     const vitoria = palavraDoJogo.every((letra) =>
@@ -98,16 +131,11 @@ const JogoDaForca = (props) => {
     if (vitoria) {
       return (
         <div className="palavra-do-jogo">
-          {palavraDoJogo
-            .join("")
-            .split("")
-            .map((letra, index) => (
-              <div key={index} className="letra_escolher">
-                <span className="vencedora">
-                  {letrasSelecionadas.includes(letra) ? letra : "_"}
-                </span>
-              </div>
-            ))}
+          {palavraDoJogo.map((letra, index) => (
+            <div key={index} className="letra_escolher">
+              <span className="vencedora">{letra}</span>
+            </div>
+          ))}
         </div>
       );
     }
@@ -127,11 +155,22 @@ const JogoDaForca = (props) => {
   return (
     <>
       <div className="layout">
-        <img className="forca" src={forca0} alt="Forca" />
-        <button className="escolher_palavra" onClick={jogar}>
+        <img
+          data-test="game-image"
+          className="forca"
+          src={forca0}
+          alt="Forca"
+        />
+        <button
+          data-test="choose-word"
+          className="escolher_palavra"
+          onClick={jogar}
+        >
           Escolher Palavra
         </button>
-        <div className="palavra-do-jogo">{renderPalavra()}</div>
+        <div data-test="word" className="palavra-do-jogo">
+          {renderPalavra()}
+        </div>
       </div>
       <div>
         <Letras
@@ -141,8 +180,19 @@ const JogoDaForca = (props) => {
       </div>
 
       <div className="chute">
-        <input type="text" className="input-chute"></input>
-        <button className="button-chute">Chutar</button>
+        <input
+          data-test="guess-input"
+          type="text"
+          className="input-chute"
+        ></input>
+        <button
+          data-test="guess-button"
+          onClick={handleChute}
+          className="button-chute"
+          disabled={botaoInputDisabled}
+        >
+          Chutar
+        </button>
       </div>
     </>
   );

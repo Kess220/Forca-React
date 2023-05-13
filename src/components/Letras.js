@@ -34,6 +34,7 @@ const Letras = ({ onClick, disabled }) => {
     <div className="letras">
       {letras.map((letra) => (
         <button
+          data-test="letter" 
           key={letra}
           className="letra"
           onClick={() => onClick(letra)}
