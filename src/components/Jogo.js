@@ -1,6 +1,6 @@
+import forca0 from "../assets/forca0.png";
 import React, { useState } from "react";
 import Letras from "./Letras";
-import forca0 from "../assets/forca0.png";
 import forca1 from "../assets/forca1.png";
 import forca2 from "../assets/forca2.png";
 import forca3 from "../assets/forca3.png";
@@ -27,7 +27,6 @@ const JogoDaForca = (props) => {
 
   const [erros, setErros] = useState(0);
   const [numeroForca, setNumeroForca] = useState(0);
-  const [jogoVencido, setJogoVencido] = useState(false);
 
   const jogar = () => {
     // Escolha uma palavra aleatória do array de props.palavras
@@ -40,7 +39,6 @@ const JogoDaForca = (props) => {
     // Remova o atributo "disabled" do botão com a classe "letras"
     setBotaoLetrasDisabled(false);
     setBotaoInputDisabled(false);
-    setJogoVencido(false);
 
     // Limpe as letras selecionadas
     setLetrasSelecionadas([]);
@@ -50,8 +48,7 @@ const JogoDaForca = (props) => {
     setNumeroForca(0);
 
     // Altere o caminho da imagem da forca para a imagem inicial (forca0)
-    document.querySelector(".forca").src = forca0;
-
+    document.querySelector(".forca").setAttribute("src", forca0);
     document.querySelector(".chute").style.display = "flex";
     const botoesLetras = document.querySelectorAll(".letra");
     botoesLetras.forEach((botao) => {
@@ -60,37 +57,44 @@ const JogoDaForca = (props) => {
   };
 
   const handleLetraClick = (letra) => {
-    if (jogoVencido || letrasSelecionadas.includes(letra)) {
-      return;
-    }
+    const letrasDaPalavra = palavraDoJogo.slice();
+    const letraEstaNaPalavra = letrasDaPalavra.includes(letra);
+    let novasLetrasSelecionadas = [];
 
-    const vitoria = palavraDoJogo.every((letra) =>
-      letrasSelecionadas.includes(letra)
-    );
-
-    if (vitoria) {
-      setBotaoLetrasDisabled(true);
-      setJogoVencido(true);
-      return;
-    }
-
-    if (palavraDoJogo.includes(letra)) {
-      setLetrasSelecionadas([...letrasSelecionadas, letra]);
+    if (letraEstaNaPalavra) {
+      novasLetrasSelecionadas = [...letrasSelecionadas, letra];
+      setLetrasSelecionadas(novasLetrasSelecionadas);
     } else {
-      setErros(erros + 1);
+      const novosErros = erros + 1;
+      setErros(novosErros);
 
-      if (numeroForca < 6) {
-        setNumeroForca(numeroForca + 1);
-        document.querySelector(".forca").src =
-          caminhosImagensForca[numeroForca + 1];
+      if (novosErros >= 6) {
+        setBotaoLetrasDisabled(true);
+        const botoesLetras = document.querySelectorAll(".botao-letra");
+        botoesLetras.forEach((botao) => {
+          botao.disabled = true;
+        });
       } else {
-        setPalavraDoJogo(palavraDoJogo);
+        const novoNumeroForca = numeroForca + 1;
+        setNumeroForca(novoNumeroForca);
+        document.querySelector(".forca").src =
+          caminhosImagensForca[novoNumeroForca];
       }
     }
 
-    // Desabilitar botão correspondente à letra clicada
     const botaoLetra = document.getElementById(`botao-${letra}`);
     botaoLetra.disabled = true;
+
+    const verificarVitoria = () => {
+      const todasAsLetrasEncontradas = letrasDaPalavra.every((letraDaPalavra) =>
+        novasLetrasSelecionadas.includes(letraDaPalavra)
+      );
+
+      if (todasAsLetrasEncontradas) {
+        setBotaoLetrasDisabled(true);
+      }
+    };
+    verificarVitoria();
   };
 
   const handleChute = (event) => {
@@ -102,7 +106,6 @@ const JogoDaForca = (props) => {
       return;
     }
     if (palavraChutada === palavraDoJogo.join("").toLowerCase()) {
-      setJogoVencido(true);
       setBotaoLetrasDisabled(true);
       setBotaoInputDisabled(true);
       setLetrasSelecionadas([
@@ -123,12 +126,11 @@ const JogoDaForca = (props) => {
     }
     event.target.parentElement.querySelector(".input-chute").value = "";
   };
+  const vitoria = palavraDoJogo.every((letraPalavra) =>
+    letrasSelecionadas.includes(letraPalavra)
+  );
 
   const renderPalavra = () => {
-    const vitoria = palavraDoJogo.every((letra) =>
-      letrasSelecionadas.includes(letra)
-    );
-
     if (erros >= 6) {
       return palavraDoJogo.map((letra, index) => (
         <div key={index} className="letra_escolher">
@@ -184,12 +186,11 @@ const JogoDaForca = (props) => {
 
       <Letras
         className="letras"
-        onClick={handleLetraClick || jogoVencido}
+        onClick={handleLetraClick}
         disabled={botaoLetrasDisabled}
       />
 
       <div className="chute">
-        {" "}
         Já sei a palavra!
         <input
           data-test="guess-input"
