@@ -70,12 +70,14 @@ const JogoDaForca = (props) => {
 
       if (novosErros >= 6) {
         setBotaoLetrasDisabled(true);
+        document.querySelector(".forca").setAttribute("src", forca6);
         const botoesLetras = document.querySelectorAll(".botao-letra");
         botoesLetras.forEach((botao) => {
           botao.disabled = true;
         });
       } else {
         const novoNumeroForca = numeroForca + 1;
+        console.log(caminhosImagensForca[novoNumeroForca]); // adicionado para depuração
         setNumeroForca(novoNumeroForca);
         document.querySelector(".forca").src =
           caminhosImagensForca[novoNumeroForca];
